@@ -1,5 +1,7 @@
 # DynamicRouter
 
+[![Build Status](https://travis-ci.org/gberdugo/dynamic_router.png?branch=master)](https://travis-ci.org/gberdugo/dynamic_router) [![Gem Version](https://badge.fury.io/rb/dynamic_router.png)](http://badge.fury.io/rb/dynamic_router) [![Coverage Status](https://coveralls.io/repos/coyosoftware/dynamic_router/badge.png)](https://coveralls.io/r/coyosoftware/dynamic_router)
+
 Add dynamic routes to your project
 
 ## Installation
