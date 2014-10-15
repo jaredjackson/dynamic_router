@@ -55,4 +55,4 @@ build/
 .project
 
 ## Dummy Project
-/spec/dummy/*
+/spec/dummy/
