@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["gberdugo@gmail.com"]
   spec.summary       = %q{Add dynamic routes to your project}
   spec.description   = %q{Use this gem to add dynamic routes to your project.}
-  spec.homepage      = "http://rubygems.org/gems/dynamic_router"
+  spec.homepage      = "https://github.com/coyosoftware/dynamic_router"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
