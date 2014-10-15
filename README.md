@@ -26,9 +26,19 @@ Suppose you want to create a friendly URL for a resource based on fields of an e
 		# This model has a field called 'url'
 	end
 	
-You can create a route to a resource using this field as URL, just use the notation:
+To create a route to a resource using the field 'url' as URL, first extend the DynamicRouter class:
 
 	class Example < ActiveRecord::Base
+		extend DynamicRouter
+		
+		# This model has a field called 'url'
+	end
+	
+And after add the 'has_dynamic_route' method as following:
+
+	class Example < ActiveRecord::Base
+		extend DynamicRouter
+		
 		# This model has a field called 'url'
 		
 		has_dynamic_route Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method"
