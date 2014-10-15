@@ -9,7 +9,7 @@ module DynamicRouter
           klass.find_each do |model|
             defaults = DynamicRouter::ClassMethods.parse_defaults(options[:defaults], model)
             
-            self.send(method, url.call(model).to_s, :to => target.to_s, :defaults => defaults)
+            DynamicRouter::ClassMethods.draw_route(self, method, url.call(model).to_s, target.to_s, defaults)
           end
         end
       end
@@ -34,11 +34,16 @@ module DynamicRouter
         def create_route
           klass = self
           
-          Rails.application.routes.draw do
+          _routes = Rails.application.routes
+          _routes.disable_clear_and_finalize = true
+          
+          _routes.draw do
             defaults = DynamicRouter::ClassMethods.parse_defaults(klass._defaults, klass)
             
-            self.send(klass._method, klass._url.call(klass).to_s, :to => klass._target.to_s, :defaults => defaults)
+            DynamicRouter::ClassMethods.draw_route(self, klass._method, klass._url.call(klass).to_s, klass._target.to_s, defaults)
           end
+          
+          _routes.disable_clear_and_finalize = false
         end
       end
     end
@@ -54,6 +59,10 @@ module DynamicRouter
         end
         
         defaults
+      end
+      
+      def draw_route(route, method, url, target, defaults)
+        route.send(method, url, :to => target, :defaults => defaults) unless url.blank? || url.gsub(/\//, "").blank?
       end
   end
 end

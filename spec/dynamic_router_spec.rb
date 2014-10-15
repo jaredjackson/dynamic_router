@@ -6,7 +6,9 @@ RSpec.describe DynamicRouter do
       extend DynamicRouter
     end
     
+    Example.destroy_all
     Example.create!(:first_path => "path_a", :second_path => "path_a_a", :default_field => "default_value")
+    Example.create!(:first_path => "path_a", :second_path => "path_a_c", :default_field => "default_value")
   end
   
   it "should check the the existence of the table" do
@@ -22,6 +24,7 @@ RSpec.describe DynamicRouter do
     Example.send(:has_dynamic_route, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
     
     expect(Rails.application.routes.recognize_path('/path_a/path_a_a', :method => :get))
+    expect(Rails.application.routes.recognize_path('/path_a/path_a_c', :method => :get))
   end
   
   it "should accept the method option" do
@@ -42,5 +45,20 @@ RSpec.describe DynamicRouter do
     Example.create!(:first_path => "path_a", :second_path => "path_a_b")
     
     expect(Rails.application.routes.recognize_path('/path_a/path_a_b', :method => :get))
+  end
+  
+  it "should not create the route if the url is blank" do
+    Example.send(:has_dynamic_route, Proc.new {|example| ""}, "dummy#dummy_method")
+    
+    expect(Rails.application.routes.routes.named_routes).to be_empty
+  end
+  
+  it "should not create the route if the url eval to blank" do
+    Example.send(:has_dynamic_route, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
+    
+    Example.create!(:first_path => "")
+    
+    expect(Rails.application.routes.routes.named_routes.size).to eq(2)
+    expect(Rails.application.routes.routes.size).to eq(2)
   end
 end
