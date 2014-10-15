@@ -44,7 +44,7 @@ And after add the 'has_dynamic_route' method as following:
 		has_dynamic_route Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method"
 	end
 	
-With this notation, when you create models like:
+After this when you create models like:
 
 	Example.create!(:url => "abc")
 	Example.create!(:url => "123")
