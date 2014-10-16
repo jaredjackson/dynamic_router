@@ -18,13 +18,13 @@ RSpec.describe DynamicRouter do
     expect(connection).to receive(:table_exists?).with(Example.table_name)
     
     Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
+      DynamicRouter::Router.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
     end
   end
   
   it "should create a get route with the supplied url" do
     Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
+      DynamicRouter::Router.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
     end
     
     expect(Rails.application.routes.recognize_path('/path_a/path_a_a', :method => :get))
@@ -33,7 +33,7 @@ RSpec.describe DynamicRouter do
   
   it "should accept the method option" do
     Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method", :method => :post)
+      DynamicRouter::Router.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method", :method => :post)
     end
     
     expect(Rails.application.routes.recognize_path('/path_a/path_a_a', :method => :post))
@@ -41,7 +41,7 @@ RSpec.describe DynamicRouter do
   
   it "should accept the defaults option" do
     Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method", :defaults => {:default_value => Proc.new {|example| example.default_field}})
+      DynamicRouter::Router.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method", :defaults => {:default_value => Proc.new {|example| example.default_field}})
     end
     
     expect(Rails.application.routes.routes.named_routes["path_a_path_a_a"].defaults).to match a_hash_including(:default_value => "default_value")
@@ -55,7 +55,7 @@ RSpec.describe DynamicRouter do
   
   it "should not create the route if the url is blank" do
     Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| ""}, "dummy#dummy_method")
+      DynamicRouter::Router.has_dynamic_route_for(Example, Proc.new {|example| ""}, "dummy#dummy_method")
     end
     
     expect(Rails.application.routes.routes.named_routes).to be_empty

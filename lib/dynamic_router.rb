@@ -1,8 +1,8 @@
 require "dynamic_router/version"
 
 module DynamicRouter
-  module_function
-    def has_dynamic_route_for(klass, url, target, options = {})
+  class Router
+    def self.has_dynamic_route_for(klass, url, target, options = {})
       route_method = options[:method] || :get
       
       if ActiveRecord::Base.connection.table_exists? klass.table_name
@@ -35,4 +35,5 @@ module DynamicRouter
         end
       end
     end
+  end    
 end
