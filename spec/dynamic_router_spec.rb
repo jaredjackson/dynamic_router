@@ -2,6 +2,9 @@ require 'spec_helper'
 
 RSpec.describe DynamicRouter do
   before(:each) do
+    class Example < ActiveRecord::Base
+    end
+
     Example.destroy_all
     
     Example.create!(:first_path => "path_a", :second_path => "path_a_a", :default_field => "default_value")
