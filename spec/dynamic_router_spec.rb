@@ -44,14 +44,10 @@ RSpec.describe DynamicRouter do
     expect(Rails.application.routes.routes.named_routes["path_a_path_a_a"].defaults).to match a_hash_including(:default_value => "default_value")
   end
   
-  it "should create the route after save the model" do
-    Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method", :defaults => {:default_value => Proc.new {|example| example.default_field}})
-    end
+  it "should reload the routes after save the model" do
+    expect(Rails.application.routes_reloader).to receive(:reload!)
     
     Example.create!(:first_path => "path_a", :second_path => "path_a_b")
-    
-    expect(Rails.application.routes.recognize_path('/path_a/path_a_b', :method => :get))
   end
   
   it "should not create the route if the url is blank" do
@@ -63,12 +59,8 @@ RSpec.describe DynamicRouter do
   end
   
   it "should not create the route if the url eval to blank" do
-    Rails.application.routes.draw do
-      DynamicRouter.has_dynamic_route_for(Example, Proc.new {|example| "/#{example.first_path}/#{example.second_path}"}, "dummy#dummy_method")
-    end
-    
     Example.create!(:first_path => "")
     
-    expect(Rails.application.routes.routes.named_routes.size).to eq(2)
+    expect(Rails.application.routes.routes.named_routes.size).to eq(0)
   end
 end
