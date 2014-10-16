@@ -26,23 +26,9 @@ Suppose you want to create a friendly URL for a resource based on fields of an e
 		# This model has a field called 'url'
 	end
 	
-To create a route to a resource using the field 'url' as URL, first extend the DynamicRouter class:
+To create a route to a resource using the field 'url' as URL, add the following line to your routes.rb:
 
-	class Example < ActiveRecord::Base
-		extend DynamicRouter
-		
-		# This model has a field called 'url'
-	end
-	
-And after add the 'has_dynamic_route' method as following:
-
-	class Example < ActiveRecord::Base
-		extend DynamicRouter
-		
-		# This model has a field called 'url'
-		
-		has_dynamic_route Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method"
-	end
+	DynamicRouter.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method"
 	
 After this when you create models like:
 
@@ -53,19 +39,11 @@ The dynamic router will create the routes "/abc" and "/123" mapping to DummyCont
 
 You can pass the desired HTTP method also:
 	
-	class Example < ActiveRecord::Base
-		# This model has a field called 'url'
-		
-		has_dynamic_route Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :method => :post
-	end
+	DynamicRouter.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :method => :post
 	
 And can specify default values to be passed, like:
 
-	class Example < ActiveRecord::Base
-		# This model has two fields called 'url' and 'default_field'
-		
-		has_dynamic_route Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :defaults => {:some_value => Proc.new {|example| example.default_field}}
-	end
+	DynamicRouter.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :defaults => {:some_value => Proc.new {|example| example.default_field}}
 	
 The dynamic router will map ALL records of the model on the startup and will create an after_save hook to create new routes as the models are created. 
 
