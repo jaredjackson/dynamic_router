@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.1"
   spec.add_development_dependency "pry", "~> 0.10"
   spec.add_development_dependency "coveralls", "~> 0.7"
+  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.7"
   spec.add_development_dependency "sqlite3", "~> 1.3"
   
 end

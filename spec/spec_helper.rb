@@ -1,6 +1,10 @@
 require 'coveralls'
 Coveralls.wear!
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
+
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] = "test"
 
