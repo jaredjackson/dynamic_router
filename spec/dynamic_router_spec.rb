@@ -70,6 +70,5 @@ RSpec.describe DynamicRouter do
     Example.create!(:first_path => "")
     
     expect(Rails.application.routes.routes.named_routes.size).to eq(2)
-    expect(Rails.application.routes.routes.size).to eq(2)
   end
 end
