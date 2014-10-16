@@ -2,7 +2,9 @@ language: ruby
 rvm:
 - 2.0.0
 
-env: CODECLIMATE_REPO_TOKEN=20b9f8788d414f2fe72eb4f9ef02c9173b905e345c183beb5a068ca0a3f32004 
+addons:
+  code_climate:
+    repo_token: 20b9f8788d414f2fe72eb4f9ef02c9173b905e345c183beb5a068ca0a3f32004
 
 notifications:
   email:
