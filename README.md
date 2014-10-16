@@ -1,6 +1,6 @@
 # DynamicRouter
 
-[![Build Status](https://travis-ci.org/coyosoftware/dynamic_router.svg?branch=master)](https://travis-ci.org/coyosoftware/dynamic_router) [![Gem Version](https://badge.fury.io/rb/dynamic_router.png)](http://badge.fury.io/rb/dynamic_router) [![Coverage Status](https://coveralls.io/repos/coyosoftware/dynamic_router/badge.png)](https://coveralls.io/r/coyosoftware/dynamic_router) [![Code Climate](https://codeclimate.com/github/coyosoftware/dynamic_router/badges/gpa.svg)](https://codeclimate.com/github/coyosoftware/dynamic_router)
+[![Build Status](https://travis-ci.org/coyosoftware/dynamic_router.svg?branch=master)](https://travis-ci.org/coyosoftware/dynamic_router) [![Gem Version](https://badge.fury.io/rb/dynamic_router.png)](http://badge.fury.io/rb/dynamic_router) [![Test Coverage](https://codeclimate.com/github/coyosoftware/dynamic_router/badges/coverage.svg)](https://codeclimate.com/github/coyosoftware/dynamic_router) [![Code Climate](https://codeclimate.com/github/coyosoftware/dynamic_router/badges/gpa.svg)](https://codeclimate.com/github/coyosoftware/dynamic_router)
 
 Add dynamic routes based on model attributes
 
