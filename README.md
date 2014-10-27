@@ -46,7 +46,16 @@ And can specify default values to be passed, like:
 ```ruby
 	DynamicRouter::Router.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :defaults => {:some_value => Proc.new {|example| example.default_field}}
 ```	
-The dynamic router will map ALL records of the model on the startup and will create an after_save hook to create new routes as the models are created. 
+The dynamic router will map ALL records of the model on the startup and will create an after_save hook to create new routes as the models are created.
+
+** Notes for Unicorn
+If you use Unicorn as server (or some other server that spawn multiple workers), you might experience an 'intermittent' 404 page for the dynamic routes when they are updated after saving a model.
+This occurs because only the worker that served the update request will update its routes. 
+To avoid this you can reload the routes before every request or implement some kind of messaging system (using redis or similar) to tell your workers to reload the routes.
+
+
+## Credits
+Thanks to Michael Lang (http://codeconnoisseur.org/) for the code that inspired this gem.
 
 ## Contributing
 
