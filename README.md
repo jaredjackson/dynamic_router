@@ -21,30 +21,31 @@ Or install it yourself as:
 ## Usage
 
 Suppose you want to create a friendly URL for a resource based on fields of an example model:
-
+```ruby
 	class Example < ActiveRecord::Base
 		# This model has a field called 'url'
 	end
-	
+```	
 To create a route to a resource using the field 'url' as URL, add the following line to your routes.rb:
-
+```ruby
 	DynamicRouter::Router.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method"
+```
 	
 After this when you create models like:
-
+```ruby
 	Example.create!(:url => "abc")
 	Example.create!(:url => "123")
-	
+```	
 The dynamic router will create the routes "/abc" and "/123" mapping to DummyController#dummy_method
 
 You can pass the desired HTTP method also:
-	
+```ruby	
 	DynamicRouter::Router.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :method => :post
-	
+```	
 And can specify default values to be passed, like:
-
+```ruby
 	DynamicRouter::Router.has_dynamic_route_for Example, Proc.new {|example| "/#{example.url}"}, "dummy#dummy_method", :defaults => {:some_value => Proc.new {|example| example.default_field}}
-	
+```	
 The dynamic router will map ALL records of the model on the startup and will create an after_save hook to create new routes as the models are created. 
 
 ## Contributing
