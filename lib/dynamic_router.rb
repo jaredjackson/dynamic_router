@@ -32,13 +32,7 @@ module DynamicRouter
         end
       end
       
-      klass.class_eval do
-        after_save :create_route
-        
-        def create_route
-          Rails.application.routes_reloader.reload!
-        end
-      end
+   
     end
   end    
 end
