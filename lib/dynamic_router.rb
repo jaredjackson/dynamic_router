@@ -23,7 +23,8 @@ module DynamicRouter
               unless _url.blank? || _url.gsub(/\//, "").blank?
                 puts "[DEBUG] Routing #{route_method.to_s.upcase} #{_url}, to #{target}, defaults: #{defaults}"
                 Rails.logger.info "[INFO] Routing #{route_method.to_s.upcase} #{_url}, to #{target}, defaults: #{defaults}"
-                send(route_method, _url, :to => _target, :defaults => defaults)
+                #send(route_method, _url, :to => _target, :defaults => defaults)
+                "#{route_method}, #{_url}, to: #{_target}, defaults: #{defaults}"
               end
             rescue Exception => e
               Rails.logger.error "Error => #{e.class} - #{e.message}"
